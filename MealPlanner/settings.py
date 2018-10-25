@@ -15,11 +15,13 @@ from django.core.exceptions import ImproperlyConfigured
 from .settings_secret import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
+# Handling Key Import Errors
 def get_env_variable(var_name):
-    """ Get the environment variable or return exception"""
+    """ Get the environment variable or return exception """
     try:
         return os.environ[var_name]
     except KeyError:
@@ -38,6 +40,7 @@ SECRET_KEY = secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+print(ENV_ROLE)
 if ENV_ROLE == 'development':
     DEBUG = True
     TEMPLATE_DEBUG = DEBUG
