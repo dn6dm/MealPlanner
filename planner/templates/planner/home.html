@@ -1,7 +1,7 @@
 {% extends "planner/base.html" %}
 {% block content %}
 {% load static %}
-<img src="{% static 'images/banner.jpg' %}" class="img-fluid h-50 w-100" alt="Responsive image">
+<img src="{% static 'images/banner.jpg' %}" class="img-fluid h-25 w-100" alt="Responsive image">
 <h3 class="mt-3">About this website</h3>
 <p class="text-muted">The MealPlanner website is for anyone looking to regulate their caloric and macronutrient intake
     more thoroughly. From Weight Watchers to the Keto diet, there are an endless number of different diets and meal
@@ -10,6 +10,17 @@
     from what they usually eat or cook and takes too much effort to maintain. The MealPlanner website seeks to create
     healthier diets that users can actually keep up with and maintain long-term.</p>
 <h3>How it works</h3>
-<p class="text-muted">The MealPlanner website is for anyone looking to regulate their caloric and macronutrient intake
-    more thoroughly.</p>
+<p class="text-muted">The MealPlanner works by taking a macro and calorie focused approach. You'll first be
+    asked to input your macronutrient goals in grams of protein, carbohydrates, and fats. Afterwards, you can choose to
+    add the nutritional information of the foods that you would like to use in your diet. The planner also comes with
+    some nutritional information already pre-added to its database to help meet the macro needs of your meal plan. Once
+    you've added your foods, the planner will devise a meal plan that suits your macro needs. If you decide that you
+    like the meal plan and want to save it for later, you can choose to favorite it. If not, you can get the planner to
+    make another meal plan for you.</p>
+<h3>Things to note</h3>
+<p class="text-muted">Please note that if you choose to add many foods that are poorly proportioned macro-wise, the
+    calculator will draw more upon the pre-added foods in the database to construct your meal plan as to meet your
+    needs. Furthermore, while the planner does draw upon the principles of the <em>If It Fits Your Macros</em> diet, it
+    is suggested that you focus primarily on eating healthy foods with the occasional indulgence as that will help your
+    body regulate hunger better.</p>
 {% endblock content %}
