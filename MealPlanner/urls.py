@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('planner.urls')),
+    path('signup/', 'MealPlanner.users.view.user_new', name='user_new'),
 ]
