@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from .forms import UserForm
 
 
-def subscriber_new(request, template='users/user_new/html'):
+def user_new(request, template='users/user_new.html'):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
@@ -16,6 +16,6 @@ def subscriber_new(request, template='users/user_new/html'):
             user.set_password(password)
             user.save()
             return HttpResponseRedirect('/success/')
-        else:
-            form = UserForm()
+    else:
+        form = UserForm()
         return render(request, template, {'form': form})
