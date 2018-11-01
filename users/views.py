@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
+from django.views.generic.base import TemplateView
 
 from .forms import UserForm
 
@@ -21,3 +22,7 @@ def user_new(request, template='users/user_new.html'):
     else:
         form = UserForm()
         return render(request, template, {'form': form})
+
+
+class ProfilePage(TemplateView):
+    template_name = 'users/profile.html'
