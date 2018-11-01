@@ -3,6 +3,12 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class UserForm(UserCreationForm):
+    first_name = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={'class':'form-control'})
+    )
+    last_name = forms.CharField(
+        required=True, widget=forms.TextInput(attrs={'class':'form-control'})
+    )
     email = forms.EmailField(
         required=True, widget=forms.TextInput(attrs={'class': 'form-control'})
     )
