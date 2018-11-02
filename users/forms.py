@@ -1,9 +1,17 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from .models import Profile
 
 
 class UserForm(UserCreationForm):
-    first_name = forms.CharField(
+    email = forms.EmailField
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'username', 'password1', 'password2']
+
+    '''first_name = forms.CharField(
         required=True, widget=forms.TextInput(attrs={'class':'form-control'})
     )
     last_name = forms.CharField(
@@ -20,4 +28,18 @@ class UserForm(UserCreationForm):
     )
     password2 = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'password'})
-    )
+    )'''
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['calories', 'carbs', 'fat', 'protein']
