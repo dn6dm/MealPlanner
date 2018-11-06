@@ -4,14 +4,17 @@
 <div class="content-section">
     <div class="media">
         <div class="media-body">
-            <h2 class="account-heading">Make Plans</h2>
+            <h2 class="account-heading">Add Foods</h2>
         </div>
     </div>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        <fieldset class="form.group">
+            {{ form|crispy }}
+        </fieldset>
         <div class="form-group">
             <button class="btn btn-outline-info" type="submit">
-                Generate
+                Add
             </button>
         </div>
     </form>
