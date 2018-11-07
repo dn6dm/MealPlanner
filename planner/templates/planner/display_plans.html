@@ -1,0 +1,32 @@
+{% extends 'planner/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <div class="media">
+        <div class="media-body border-bottom">
+            <h2 class="account-heading">Your Meal Plan</h2>
+        </div>
+    </div>
+    {% for key, value in items_list.items %}
+    <article class="media content-section">
+        <div class="media-body">
+            <h4 class="mt-4">{{ value.name }}</h4>
+            <h5 class="text-muted">Calories: {{ value.calories }} | Carbs: {{ value.carbs }} | Fat: {{ value.fat }} |
+                Protein: {{ value.protein }}
+            </h5>
+        </div>
+    </article>
+    {% endfor %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form.group">
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">
+                Favorite
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

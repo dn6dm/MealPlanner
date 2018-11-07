@@ -3,7 +3,8 @@ from django.contrib import messages
 from .forms import FoodItemForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import FoodPlan
+from .models import FoodPlan, FoodItem
+from django.views.generic import ListView
 
 
 # Create your views here.
@@ -34,6 +35,23 @@ def create_plan(request):
     if request.method == 'POST':
         plan = FoodPlan()
         plan.create(user=request.user)
-        plan.save()
+        items_list = {}
+        for i in plan.food_plan:
+            tmp = FoodItem.objects.filter(name=i).first()
+            items_list[i] = tmp
         messages.success(request, f'Your plan has been created!')
+        return render(request, 'planner/display_plans.html', {'items_list': items_list, 'plan': plan})
     return render(request, 'planner/create_plans.html')
+
+
+class PlanListView(ListView):
+    model = FoodItem
+    template_name = 'planner/display_plans.html'
+    context_object_name = 'items_list'
+
+    '''def get_queryset(self):
+        return FoodPlan.objects.last().items()'''
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            pass

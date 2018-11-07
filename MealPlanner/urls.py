@@ -27,5 +27,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('profile/', users_views.profile, name='profile'),
     path('add_foods/', planner_views.add_food, name="add_foods"),
-    path('create_plans/', planner_views.create_plan, name="create_plans")
+    path('create_plans/', planner_views.create_plan, name="create_plans"),
+    path('display_plans/', planner_views.PlanListView.as_view(), name="display_plans"),
 ]
