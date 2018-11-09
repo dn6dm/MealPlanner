@@ -158,4 +158,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 LOGIN_REDIRECT_URL = '/'
 
-CRISPY_TEMPLATE_PACK =  'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

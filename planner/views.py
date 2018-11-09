@@ -39,7 +39,9 @@ def create_plan(request):
         for i in plan.food_plan:
             tmp = FoodItem.objects.filter(name=i).first()
             items_list[i] = tmp
+        plan.save()
         messages.success(request, f'Your plan has been created!')
+        request.session["plan_id"] = plan.id
         return render(request, 'planner/display_plans.html', {'items_list': items_list, 'plan': plan})
     return render(request, 'planner/create_plans.html')
 
@@ -52,6 +54,11 @@ class PlanListView(ListView):
     '''def get_queryset(self):
         return FoodPlan.objects.last().items()'''
 
-    def post(self, request, *args, **kwargs):
-        if request.method == 'POST':
-            pass
+    '''def post(self, request, *args, **kwargs):
+        plan = request.session.get("created_plan", None)
+        plan.save()
+        messages.success(request, f'Your plan has been saved!')
+        context = {
+            'items_list': request.session.get("created_plan", None)
+        }
+        return render(request, 'planner/display_plans.html', context)'''
