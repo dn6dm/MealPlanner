@@ -19,7 +19,7 @@
     {% endfor %}
     <div>
         <a href="#" class="btn btn-secondary btn-sm mt-1 mb-1">Update</a>
-        <a href="#" class="btn btn-danger btn-sm mt-1 mb-1">Delete</a>
+        <a href="{% url 'delete_plans' plan.id%}" class="btn btn-danger btn-sm mt-1 mb-1">Delete</a>
     </div>
 </div>
 {% endblock content %}

@@ -29,4 +29,5 @@ urlpatterns = [
     path('add_foods/', planner_views.add_food, name="add_foods"),
     path('create_plans/', planner_views.create_plan, name="create_plans"),
     path('display_plans/', planner_views.PlanListView.as_view(), name="display_plans"),
+    path('delete_plans/<int:pk>/', planner_views.PlanDeleteView.as_view(), name="delete_plans"),
 ]

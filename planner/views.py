@@ -4,7 +4,8 @@ from .forms import FoodItemForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import FoodPlan, FoodItem
-from django.views.generic import ListView
+from django.views.generic import ListView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 # Create your views here.
@@ -62,3 +63,14 @@ class PlanListView(ListView):
             'items_list': request.session.get("created_plan", None)
         }
         return render(request, 'planner/display_plans.html', context)'''
+
+
+class PlanDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = FoodPlan
+    success_url = '/'
+
+    def test_func(self):
+        plan = self.get_object()
+        if self.request.user.profile == plan.profile:
+            return True
+        return False
