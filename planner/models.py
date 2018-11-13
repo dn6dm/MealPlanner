@@ -24,21 +24,24 @@ class FoodItem(models.Model):
 
 class FoodPlan(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    food_plan = ArrayField(models.CharField(max_length=50), default=list)
+    plan_items = models.ManyToManyField(FoodItem)
 
     '''def __str__(self):
         return self.food_plan'''
 
-    def create(self, user):
+    def save(self, user):
         self.profile = user.profile
+        super().save()
+
+    def create(self):
         food_items = FoodItem.objects.all()
-        calories_left = user.profile.calories
-        carbs_left = user.profile.carbs
-        fat_left = user.profile.fat
-        protein_left = user.profile.protein
+        calories_left = self.profile.calories
+        carbs_left = self.profile.carbs
+        fat_left = self.profile.fat
+        protein_left = self.profile.protein
         for i in food_items:
             if calories_left - i.calories >= -50 and carbs_left - i.carbs >= -5 and fat_left - i.fat >= -5:
-                self.food_plan.append(i.name)
+                self.plan_items.add(i)
                 calories_left = calories_left - i.calories
                 carbs_left = carbs_left - i.carbs
                 fat_left = fat_left - i.fat

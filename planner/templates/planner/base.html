@@ -35,7 +35,7 @@
                         <a class="nav-link" href="{% url 'create_plans' %}">Make Plans</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Favorite Plans</a>
+                        <a class="nav-link" href="{% url 'profile_plans' user.username %}">My Plans</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">

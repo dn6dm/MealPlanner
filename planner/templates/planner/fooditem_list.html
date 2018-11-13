@@ -7,7 +7,7 @@
             <h2 class="account-heading">Your Meal Plan</h2>
         </div>
     </div>
-    {% for key, value in items_list.items %}
+    {% for value in plan_items %}
     <article class="media content-section">
         <div class="media-body">
             <h4 class="mt-4">{{ value.name }}</h4>
@@ -19,7 +19,7 @@
     {% endfor %}
     <div>
         <a href="#" class="btn btn-secondary btn-sm mt-1 mb-1">Update</a>
-        <a href="{% url 'delete_plans' plan.id%}" class="btn btn-danger btn-sm mt-1 mb-1">Delete</a>
+        <a href="{% url 'delete_plans' id %}" class="btn btn-danger btn-sm mt-1 mb-1">Delete</a>
     </div>
 </div>
 {% endblock content %}

@@ -1,11 +1,13 @@
+from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView
 from django.contrib import messages
 from .forms import FoodItemForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import FoodPlan, FoodItem
 from django.views.generic import ListView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -35,25 +37,24 @@ def add_food(request):
 def create_plan(request):
     if request.method == 'POST':
         plan = FoodPlan()
-        plan.create(user=request.user)
-        items_list = {}
-        for i in plan.food_plan:
-            tmp = FoodItem.objects.filter(name=i).first()
-            items_list[i] = tmp
-        plan.save()
+        plan.save(user=request.user)
+        plan.create()
         messages.success(request, f'Your plan has been created!')
-        request.session["plan_id"] = plan.id
-        return render(request, 'planner/display_plans.html', {'items_list': items_list, 'plan': plan})
+        return redirect('display_plans', plan.id)
     return render(request, 'planner/create_plans.html')
 
 
 class PlanListView(ListView):
     model = FoodItem
-    template_name = 'planner/display_plans.html'
-    context_object_name = 'items_list'
+    context_object_name = "plan_items"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['id'] = self.kwargs['pk']
+        return context
 
     '''def get_queryset(self):
-        return FoodPlan.objects.last().items()'''
+        return FoodPlan.objects.get(id=self.kwargs['pk']).plan_items.get_queryset()'''
 
     '''def post(self, request, *args, **kwargs):
         plan = request.session.get("created_plan", None)
@@ -62,7 +63,7 @@ class PlanListView(ListView):
         context = {
             'items_list': request.session.get("created_plan", None)
         }
-        return render(request, 'planner/display_plans.html', context)'''
+        return render(request, 'planner/fooditem_list.html', context)'''
 
 
 class PlanDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -74,3 +75,19 @@ class PlanDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user.profile == plan.profile:
             return True
         return False
+
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        messages.success(request, f'Your plan was deleted')
+        return super(PlanDeleteView, self).delete(request, *args, **kwargs)
+
+
+class ProfilePlanListView(ListView):
+    model = FoodPlan
+    template_name = 'planner/profile_plans.html'
+    context_object_name = 'plans'
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        profile = user.profile
+        return FoodPlan.objects.filter(profile=profile)
