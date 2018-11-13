@@ -5,7 +5,8 @@
 <article class="media content-section">
     <div class="media-body">
         <h2><a class="article-title" href="{% url 'display_plans' plan.id %}">Plan {{ plan.id }}</a></h2>
-        <p class="article-content">Nutritional Info</p>
+        <p class="article-content">Calories: {{ plan.calories }} | Carbs: {{ plan.carbs }} | Fat: {{ plan.fat }} |
+                Protein: {{ plan.protein }}</p>
     </div>
 </article>
 {% endfor %}

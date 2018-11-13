@@ -25,6 +25,10 @@ class FoodItem(models.Model):
 class FoodPlan(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     plan_items = models.ManyToManyField(FoodItem)
+    calories = models.IntegerField(default=0)
+    carbs = models.IntegerField(default=0)
+    fat = models.IntegerField(default=0)
+    protein = models.IntegerField(default=0)
 
     '''def __str__(self):
         return self.food_plan'''
@@ -48,6 +52,11 @@ class FoodPlan(models.Model):
                 protein_left = protein_left - i.protein
             if calories_left < 70:
                 break
+        self.calories = self.profile.calories - calories_left
+        self.carbs = self.profile.carbs - carbs_left
+        self.fat = self.profile.fat - fat_left
+        self.protein = self.profile.protein - protein_left
+        super().save()
         '''if calories_left < 70:
             self.save()
         else:

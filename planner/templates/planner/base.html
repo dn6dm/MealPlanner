@@ -34,9 +34,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'create_plans' %}">Make Plans</a>
                     </li>
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'profile_plans' user.username %}">My Plans</a>
                     </li>
+                    {% endif %}
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
