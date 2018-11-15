@@ -20,7 +20,7 @@ def add_food(request):
     if request.method == 'POST':
         form = FoodItemForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save(user=request.user)
             messages.success(request, f'Your food item has been added!')
             return redirect('add_foods')
     else:
@@ -35,8 +35,10 @@ def add_food(request):
 
 @login_required
 def create_plan(request):
+    plan = FoodPlan()
+    if request.method == 'ADD':
+        plan.add_food(request.ADD.get('textfield'))
     if request.method == 'POST':
-        plan = FoodPlan()
         plan.save(user=request.user)
         plan.create()
         messages.success(request, f'Your plan has been created!')
@@ -53,8 +55,8 @@ class PlanListView(ListView):
         context['id'] = self.kwargs['pk']
         return context
 
-    '''def get_queryset(self):
-        return FoodPlan.objects.get(id=self.kwargs['pk']).plan_items.get_queryset()'''
+    def get_queryset(self):
+        return FoodPlan.objects.get(id=self.kwargs['pk']).plan_items.get_queryset()
 
     '''def post(self, request, *args, **kwargs):
         plan = request.session.get("created_plan", None)

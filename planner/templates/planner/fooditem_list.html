@@ -4,16 +4,19 @@
 <div class="content-section">
     <div class="media">
         <div class="media-body border-bottom">
-            <h2 class="account-heading">Your Meal Plan</h2>
+            <h2 class="account-heading">My Meal Plan</h2>
         </div>
     </div>
     {% for value in plan_items %}
-    <article class="media content-section">
+    <article class="media content-section bg-light mt-2 mb-2">
         <div class="media-body">
             <h4 class="mt-4">{{ value.name }}</h4>
-            <h5 class="text-muted">Calories: {{ value.calories }} | Carbs: {{ value.carbs }} | Fat: {{ value.fat }} |
-                Protein: {{ value.protein }}
-            </h5>
+            <div class="row">
+                <h5 class="text-muted col-md-3">Calories: {{ value.calories }}</h5>
+                <h5 class="text-muted col-md-3">Carbs: {{ value.carbs }}</h5>
+                <h5 class="text-muted col-md-3">Fat: {{ value.fat }}</h5>
+                <h5 class="text-muted col-md-3">Protein: {{ value.protein }}</h5>
+            </div>
         </div>
     </article>
     {% endfor %}

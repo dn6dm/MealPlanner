@@ -38,11 +38,11 @@ class FoodPlan(models.Model):
         super().save()
 
     def create(self):
-        food_items = FoodItem.objects.all()
-        calories_left = self.profile.calories
-        carbs_left = self.profile.carbs
-        fat_left = self.profile.fat
-        protein_left = self.profile.protein
+        food_items = FoodItem.objects.order_by('?')
+        calories_left = self.profile.calories - self.calories
+        carbs_left = self.profile.carbs - self.carbs
+        fat_left = self.profile.fat - self.fat
+        protein_left = self.profile.protein - self.protein
         for i in food_items:
             if calories_left - i.calories >= -50 and carbs_left - i.carbs >= -5 and fat_left - i.fat >= -5:
                 self.plan_items.add(i)
@@ -61,6 +61,14 @@ class FoodPlan(models.Model):
             self.save()
         else:
             pass'''
+
+    def add_food(self, item):
+        f = FoodItem.objects.get(name=item)
+        self.plan_items.add(f)
+        self.calories += f.calories
+        self.carbs += f.carbs
+        self.fat += f.fat
+        self.protein += f.protein
 
     def print(self):
         total_calories = 0

@@ -2,11 +2,15 @@
 {% block content %}
 <h1 class="mb-3">My Plans</h1>
 {% for plan in plans %}
-<article class="media content-section">
+<article class="media content-section bg-light mt-2 mb-2">
     <div class="media-body">
-        <h2><a class="article-title" href="{% url 'display_plans' plan.id %}">Plan {{ plan.id }}</a></h2>
-        <p class="article-content">Calories: {{ plan.calories }} | Carbs: {{ plan.carbs }} | Fat: {{ plan.fat }} |
-                Protein: {{ plan.protein }}</p>
+        <h3><a class="article-title" href="{% url 'display_plans' plan.id %}">Plan {{ plan.id }}</a></h3>
+        <div class="row">
+            <h5 class="text-muted col-md-3">Calories: {{ plan.calories }}</h5>
+            <h5 class="text-muted col-md-3">Carbs: {{ plan.carbs }}</h5>
+            <h5 class="text-muted col-md-3">Fat: {{ plan.fat }}</h5>
+            <h5 class="text-muted col-md-3">Protein: {{ plan.protein }}</h5>
+        </div>
     </div>
 </article>
 {% endfor %}
