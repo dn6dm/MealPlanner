@@ -22,13 +22,13 @@ from planner import views as planner_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('planner.urls')),
-    path('register/', users_views.user_new, name='user_new'),
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('accounts/register/', users_views.user_new, name='user_new'),
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('profile/', users_views.profile, name='profile'),
     path('add_foods/', planner_views.add_food, name="add_foods"),
     path('create_plans/', planner_views.create_plan, name="create_plans"),
     path('display_plans/<int:pk>/', planner_views.PlanListView.as_view(), name="display_plans"),
     path('delete_plans/<int:pk>/', planner_views.PlanDeleteView.as_view(), name="delete_plans"),
-    path('plans/<str:username>/', planner_views.ProfilePlanListView.as_view(), name="profile_plans"),
+    path('plans/', planner_views.ProfilePlanListView.as_view(), name="profile_plans"),
 ]

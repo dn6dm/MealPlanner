@@ -36,7 +36,7 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile_plans' user.username %}">My Plans</a>
+                        <a class="nav-link" href="{% url 'profile_plans' %}">My Plans</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -59,11 +59,13 @@
 </header>
 <main role="main" class="container mt-3">
     {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
+    <div class="bg-secondary rounded">
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="text-light {{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
     {% endif %}
     <div class="row">
         <div class="col-md-8">
@@ -73,7 +75,7 @@
             <div class="content-section">
                 {% if user.is_authenticated %}
                 <h3>{{ user.username }}</h3>
-                <p class='text-muted'>Your Macros:
+                <p class='text-muted'>My Macros:
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-light">Calories: {{ user.profile.calories }}</li>
                     <li class="list-group-item list-group-item-light">Carbs: {{ user.profile.carbs }}</li>

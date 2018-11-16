@@ -7,17 +7,19 @@
             <h2 class="account-heading">Make Plans</h2>
         </div>
     </div>
-    <form method="ADD" class="mt-3">
-        <input type="text" placeholder="Add Food Item">
-        <button type="submit">Add</button>
-    </form>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-group mt-3">
-            <button class="btn btn-outline-info" type="submit">
-                Generate
-            </button>
-        </div>
-    </form>
+    <div class="lgn-container mt-2">
+        <form method="POST" enctype="multipart/form-data" class="mt-3">
+            {% csrf_token %}
+            <div>
+                <input class="rounded" name="food_text" type="text" placeholder="Add Food Item">
+                <button class="rounded btn" name="add_food" type="submit">Add</button>
+            </div>
+            <div class="form-group mt-3">
+                <button name="generate" class="btn btn-outline-info" type="submit">
+                    Generate
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock content %}

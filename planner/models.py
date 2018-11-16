@@ -38,7 +38,8 @@ class FoodPlan(models.Model):
         super().save()
 
     def create(self):
-        food_items = FoodItem.objects.order_by('?')
+        items_already_included = [item.name for item in self.plan_items.get_queryset()]
+        food_items = FoodItem.objects.exclude(name__in=items_already_included).order_by('?')
         calories_left = self.profile.calories - self.calories
         carbs_left = self.profile.carbs - self.carbs
         fat_left = self.profile.fat - self.fat
@@ -75,8 +76,7 @@ class FoodPlan(models.Model):
         total_carbs = 0
         total_fat = 0
         total_protein = 0
-        for item in self.food_plan:
-            tmp = FoodItem.objects.filter(name=item).first()
+        for tmp in self.plan_items.all():
             print('%s %d %d %d %d' % (tmp.name, tmp.calories, tmp.carbs, tmp.fat, tmp.protein))
             total_calories += tmp.calories
             total_carbs += tmp.carbs
@@ -84,9 +84,9 @@ class FoodPlan(models.Model):
             total_protein += tmp.protein
         print('Total %d %d %d %d' % (total_calories, total_carbs, total_fat, total_protein))
 
-    def items(self):
+    '''def items(self):
         items_list = {}
-        for i in self.food_plan:
+        for i in self.plan_items.all():
             tmp = FoodItem.objects.filter(name=i).first()
             items_list[i] = tmp
-        return items_list
+        return items_list'''

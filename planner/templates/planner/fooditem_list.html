@@ -8,10 +8,10 @@
         </div>
     </div>
     {% for value in plan_items %}
-    <article class="media content-section bg-light mt-2 mb-2">
+    <article class="media content-section bg-light mt-2 mb-2 rounded">
         <div class="media-body">
-            <h4 class="mt-4">{{ value.name }}</h4>
-            <div class="row">
+            <h4 class="pt-2 pb-2">{{ value.name }}</h4>
+            <div class="row pb-1">
                 <h5 class="text-muted col-md-3">Calories: {{ value.calories }}</h5>
                 <h5 class="text-muted col-md-3">Carbs: {{ value.carbs }}</h5>
                 <h5 class="text-muted col-md-3">Fat: {{ value.fat }}</h5>
@@ -20,8 +20,7 @@
         </div>
     </article>
     {% endfor %}
-    <div>
-        <a href="#" class="btn btn-secondary btn-sm mt-1 mb-1">Update</a>
+    <div class="mb-3">
         <a href="{% url 'delete_plans' id %}" class="btn btn-danger btn-sm mt-1 mb-1">Delete</a>
     </div>
 </div>
