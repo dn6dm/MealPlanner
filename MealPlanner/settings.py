@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from django.core.exceptions import ImproperlyConfigured
-from .settings_secret import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
@@ -35,14 +34,16 @@ ENV_ROLE = get_env_variable('ENV_ROLE')
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secret_key
+SECRET_KEY = get_env_variable('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+MEALPLANNER_DB_PASS = False
 if ENV_ROLE == 'development':
     DEBUG = True
     TEMPLATE_DEBUG = DEBUG
+    MEALPLANNER_DB_PASS = get_env_variable('MEALPLANNER_DB_PASS')
 
 ALLOWED_HOSTS = ['*']
 
@@ -98,7 +99,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'mealplannerDB',
         'USER': 'postgres',
-        'PASSWORD': database_password,
+        'PASSWORD': MEALPLANNER_DB_PASS,
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
