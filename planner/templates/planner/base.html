@@ -8,7 +8,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% if title %}
-    <title>{{ title }}</title>
+    <title>Meal Planner - {{ title }}</title>
     {% else %}
     <title>Meal Planner</title>
     {% endif %}
@@ -84,13 +84,13 @@
                 </ul>
                 </p>
                 {% else %}
-                <h3>Our Sidebar</h3>
-                <p class='text-muted'>You can put any information here you'd like.
+                <h3><a href="{% url 'user_new' %}">Sign up</a> or <a href="{% url 'login' %}">log in</a></h3>
+                <p class='text-muted'>To see your macros here.
                 <ul class="list-group">
-                    <li class="list-group-item list-group-item-light">Latest Posts</li>
-                    <li class="list-group-item list-group-item-light">Announcements</li>
-                    <li class="list-group-item list-group-item-light">Calendars</li>
-                    <li class="list-group-item list-group-item-light">etc</li>
+                    <li class="list-group-item list-group-item-light">Calories</li>
+                    <li class="list-group-item list-group-item-light">Carbs</li>
+                    <li class="list-group-item list-group-item-light">Fat</li>
+                    <li class="list-group-item list-group-item-light">Protein</li>
                 </ul>
                 </p>
                 {% endif %}
