@@ -21,7 +21,7 @@ def add_food(request):
     if request.method == 'POST':
         form = FoodItemForm(request.POST)
         if form.is_valid():
-            form.save(user=request.user)
+            form.save()
             messages.success(request, f'Your food item has been added!')
             return redirect('add_foods')
     else:
