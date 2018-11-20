@@ -8,7 +8,7 @@
 {% for plan in plans %}
 <article class="media content-section bg-light mt-2 mb-2 rounded">
     <div class="media-body">
-        <h3><a class="article-title pt-2 pb-2" href="{% url 'display_plans' plan.id %}">Plan {{ plan.id }}</a></h3>
+        <h3><a class="article-title pt-2 pb-2" href="{% url 'display_plans' plan.id %}">{{ plan.name }}</a></h3>
         <div class="row pb-2">
             <h5 class="text-muted col-md-3">Calories: {{ plan.calories }}</h5>
             <h5 class="text-muted col-md-3">Carbs: {{ plan.carbs }}</h5>

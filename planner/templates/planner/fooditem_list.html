@@ -4,7 +4,14 @@
 <div class="content-section">
     <div class="media">
         <div class="media-body border-bottom">
-            <h2 class="account-heading">My Meal Plan</h2>
+            <h2 class="account-heading">{{ plan.name }}</h2>
+            <h3>Overall Nutrition Info</h3>
+            <div class="row">
+                <h4 class="col-md-3">Calories: {{ plan.calories }}</h4>
+                <h4 class="col-md-3">Carbs: {{ plan.carbs }}</h4>
+                <h4 class="col-md-3">Fat: {{ plan.fat }}</h4>
+                <h4 class="col-md-3">Protein: {{ plan.protein }}</h4>
+            </div>
         </div>
     </div>
     {% for value in plan_items %}

@@ -10,7 +10,8 @@
     <div class="lgn-container mt-2">
         <form method="POST" enctype="multipart/form-data" class="mt-3">
             {% csrf_token %}
-            <div>
+            <input class="form-control" name="name" type="text" placeholder="Enter Meal Plan Name" required>
+            <div class="mt-3">
                 <input class="rounded" name="food_text" type="text" placeholder="Add Food Item">
                 <button class="rounded btn" name="add_food" type="submit">Add</button>
             </div>

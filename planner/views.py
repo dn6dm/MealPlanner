@@ -40,7 +40,7 @@ def create_plan(request):
         if 'generate' in request.POST:
             if request.session.get('id', default=None) == None:
                 plan = FoodPlan()
-                plan.save(user=request.user)
+                plan.initiate(user=request.user, name=request.POST.get('name'))
                 request.session['id'] = plan.id
             else:
                 plan = FoodPlan.objects.get(id=request.session.get('id'))
@@ -51,13 +51,13 @@ def create_plan(request):
         elif 'add_food' in request.POST:
             if request.session.get('id', default=None) == None:
                 plan = FoodPlan()
-                plan.save(user=request.user)
+                plan.initiate(user=request.user, name=request.POST.get('name'))
                 request.session['id'] = plan.id
             else:
                 plan = FoodPlan.objects.get(id=request.session.get('id'))
             try:
                 plan.add_food(request.POST.get('food_text'))
-                plan.save(user=request.user)
+                plan.save()
                 messages.success(request, f'Food item added to plan')
             except ObjectDoesNotExist:
                 messages.success(request, f'Food item not found in database')
@@ -72,6 +72,7 @@ class PlanListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['id'] = self.kwargs['pk']
+        context['plan'] = FoodPlan.objects.get(id=self.kwargs['pk'])
         return context
 
     def get_queryset(self):
@@ -108,6 +109,11 @@ class PlanDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         messages.success(request, f'Your plan was deleted')
         request.session.pop('id', None)
         return super(PlanDeleteView, self).delete(request, *args, **kwargs)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['id'] = self.kwargs['pk']
+        return context
 
 
 class ProfilePlanListView( LoginRequiredMixin, ListView):

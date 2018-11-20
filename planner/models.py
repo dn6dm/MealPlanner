@@ -23,6 +23,7 @@ class FoodItem(models.Model):
 
 
 class FoodPlan(models.Model):
+    name = models.CharField(max_length=50)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     plan_items = models.ManyToManyField(FoodItem)
     calories = models.IntegerField(default=0)
@@ -33,8 +34,12 @@ class FoodPlan(models.Model):
     '''def __str__(self):
         return self.food_plan'''
 
-    def save(self, user):
+    def initiate(self, user, name):
         self.profile = user.profile
+        self.name = name
+        super().save()
+
+    def save(self):
         super().save()
 
     def create(self):
